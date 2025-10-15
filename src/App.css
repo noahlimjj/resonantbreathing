@@ -1,0 +1,97 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  max-width: 500px;
+  width: 100%;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: #2c3e50;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.timer {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #34495e;
+  margin-bottom: 40px;
+  font-variant-numeric: tabular-nums;
+}
+
+.play-button {
+  background: linear-gradient(135deg, #80cbc4 0%, #4db6ac 100%);
+  color: white;
+  border: none;
+  padding: 18px 60px;
+  font-size: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(77, 182, 172, 0.3);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.play-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(77, 182, 172, 0.4);
+}
+
+.play-button:active {
+  transform: translateY(0);
+}
+
+.session-counter {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(44, 62, 80, 0.1);
+}
+
+.counter-label {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-bottom: 10px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.counter-value {
+  font-size: 2.5rem;
+  color: #4db6ac;
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .timer {
+    font-size: 2.5rem;
+  }
+
+  .play-button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+  }
+
+  .container {
+    padding: 40px 30px;
+  }
+}
