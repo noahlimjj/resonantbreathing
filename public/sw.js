@@ -1,4 +1,4 @@
-const CACHE_NAME = 'resonant-breathing-v2';
+const CACHE_NAME = 'breathe-v3';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -8,6 +8,7 @@ const urlsToCache = [
   '/src/App.css',
   '/src/index.css',
   '/breathing-audio.mp3',
+  '/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama.mp3',
 ];
 
 // Install service worker and cache resources

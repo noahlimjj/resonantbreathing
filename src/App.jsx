@@ -3,11 +3,23 @@ import './App.css'
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
+  const [selectedMode, setSelectedMode] = useState('resonant') // 'resonant' or 'pns'
   const [totalSeconds, setTotalSeconds] = useState(0)
   const [sessionCount, setSessionCount] = useState(0)
   const [sessionTime, setSessionTime] = useState(0) // Current session time in seconds
   const audioRef = useRef(null)
   const timerRef = useRef(null)
+
+  const breathingModes = {
+    resonant: {
+      name: 'Resonant',
+      audioFile: '/breathing-audio.mp3'
+    },
+    pns: {
+      name: 'PNS',
+      audioFile: '/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama.mp3'
+    }
+  }
 
   // Load total time and session count from localStorage on mount and set volume
   useEffect(() => {
@@ -55,6 +67,25 @@ function App() {
     }
   }, [sessionTime, isPlaying])
 
+  const selectMode = (mode) => {
+    // Stop current playback if switching modes
+    if (isPlaying) {
+      setIsPlaying(false)
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
+      // Count as session if time was recorded
+      if (sessionTime > 0) {
+        const newSessionCount = sessionCount + 1
+        setSessionCount(newSessionCount)
+        localStorage.setItem('resonantBreathingSessions', newSessionCount.toString())
+        setSessionTime(0)
+      }
+    }
+    setSelectedMode(mode)
+  }
+
   const togglePlay = () => {
     if (isPlaying) {
       // Pause - count as a session when pausing
@@ -100,7 +131,22 @@ function App() {
   return (
     <div className="app">
       <div className="container">
-        <h1 className="title">Resonant Breathing</h1>
+        <h1 className="title">Breathe</h1>
+
+        <div className="mode-selector">
+          <button
+            className={`mode-button ${selectedMode === 'resonant' ? 'active' : ''}`}
+            onClick={() => selectMode('resonant')}
+          >
+            {breathingModes.resonant.name}
+          </button>
+          <button
+            className={`mode-button ${selectedMode === 'pns' ? 'active' : ''}`}
+            onClick={() => selectMode('pns')}
+          >
+            {breathingModes.pns.name}
+          </button>
+        </div>
 
         <div className="timer">
           {formatTime(sessionTime)}
@@ -126,7 +172,7 @@ function App() {
         </a>
 
         <audio ref={audioRef} loop>
-          <source src="/breathing-audio.mp3" type="audio/mpeg" />
+          <source src={breathingModes[selectedMode].audioFile} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
