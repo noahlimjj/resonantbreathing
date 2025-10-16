@@ -17,7 +17,7 @@ function App() {
     },
     pns: {
       name: 'PNS',
-      audioFile: '/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama.mp3'
+      audioFile: '/pns-breathing.mp3'
     }
   }
 

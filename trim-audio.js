@@ -5,10 +5,11 @@ import fs from 'fs';
 const execPromise = promisify(exec);
 
 // Configuration
-const INPUT_FILE = 'public/breathing-audio.mp3';
-const OUTPUT_FILE = 'public/breathing-audio-trimmed.mp3';
-const START_TIME = '0:00';  // Format: MM:SS or HH:MM:SS
-const END_TIME = '5:00';    // Format: MM:SS or HH:MM:SS
+const INPUT_FILE = 'public/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama.mp3';
+const OUTPUT_FILE = 'public/pns-breathing-trimmed.mp3';
+const BACKUP_FILE = 'public/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama-BACKUP.mp3';
+const START_TIME = '1:17';  // Format: MM:SS or HH:MM:SS - Skip first 1 min 17 seconds
+const END_TIME = null;    // Format: MM:SS or HH:MM:SS
 const DURATION = null;      // Alternative: specify duration instead of end time (e.g., '30' for 30 seconds)
 
 async function trimAudio() {
@@ -19,6 +20,11 @@ async function trimAudio() {
     console.error(`❌ Error: Input file "${INPUT_FILE}" not found!`);
     process.exit(1);
   }
+
+  // Create backup
+  console.log(`📦 Creating backup: ${BACKUP_FILE}`);
+  fs.copyFileSync(INPUT_FILE, BACKUP_FILE);
+  console.log(`✅ Backup created!\n`);
 
   // Check if ffmpeg is installed
   try {
