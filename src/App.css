@@ -59,13 +59,20 @@
   transform: translateY(0);
 }
 
-.session-counter {
+.stats {
   margin-top: 50px;
   padding-top: 30px;
   border-top: 1px solid rgba(44, 62, 80, 0.1);
+  display: flex;
+  justify-content: space-around;
+  gap: 40px;
 }
 
-.counter-label {
+.stat-item {
+  flex: 1;
+}
+
+.stat-label {
   font-size: 1.1rem;
   font-family: 'Inter', sans-serif;
   color: #7f8c8d;
@@ -74,28 +81,30 @@
   letter-spacing: 1px;
 }
 
-.counter-value {
-  font-size: 2.5rem;
+.stat-value {
+  font-size: 2rem;
   font-family: 'Inter', sans-serif;
   color: #4db6ac;
   font-weight: 400;
 }
 
-.install-link {
+.install-button {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 30px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: #4db6ac;
+  font-size: 1rem;
+  color: white;
+  background: linear-gradient(135deg, #80cbc4 0%, #4db6ac 100%);
   text-decoration: none;
   transition: all 0.3s ease;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 12px 32px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(77, 182, 172, 0.3);
 }
 
-.install-link:hover {
-  background: rgba(77, 182, 172, 0.1);
-  color: #2c3e50;
+.install-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(77, 182, 172, 0.4);
 }
 
 @media (max-width: 600px) {
@@ -114,5 +123,17 @@
 
   .container {
     padding: 40px 30px;
+  }
+
+  .stats {
+    gap: 20px;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .stat-label {
+    font-size: 1rem;
   }
 }

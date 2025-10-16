@@ -3,16 +3,22 @@ import './App.css'
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [totalHours, setTotalHours] = useState(0)
+  const [totalSeconds, setTotalSeconds] = useState(0)
+  const [sessionCount, setSessionCount] = useState(0)
   const [sessionTime, setSessionTime] = useState(0) // Current session time in seconds
   const audioRef = useRef(null)
   const timerRef = useRef(null)
 
-  // Load total time from localStorage on mount and set volume
+  // Load total time and session count from localStorage on mount and set volume
   useEffect(() => {
-    const savedHours = localStorage.getItem('resonantBreathingTotalHours')
-    if (savedHours) {
-      setTotalHours(parseFloat(savedHours))
+    const savedSeconds = localStorage.getItem('resonantBreathingTotalSeconds')
+    if (savedSeconds) {
+      setTotalSeconds(parseInt(savedSeconds, 10))
+    }
+
+    const savedSessions = localStorage.getItem('resonantBreathingSessions')
+    if (savedSessions) {
+      setSessionCount(parseInt(savedSessions, 10))
     }
 
     // Set audio volume to 85% (slightly louder)
@@ -43,20 +49,24 @@ function App() {
   // Save total time whenever session time changes and is playing
   useEffect(() => {
     if (isPlaying && sessionTime > 0) {
-      // Update total hours (sessionTime is in seconds, convert to hours)
-      const hoursToAdd = 1 / 3600 // 1 second in hours
-      const newTotalHours = totalHours + hoursToAdd
-      setTotalHours(newTotalHours)
-      localStorage.setItem('resonantBreathingTotalHours', newTotalHours.toString())
+      const newTotalSeconds = totalSeconds + 1
+      setTotalSeconds(newTotalSeconds)
+      localStorage.setItem('resonantBreathingTotalSeconds', newTotalSeconds.toString())
     }
   }, [sessionTime, isPlaying])
 
   const togglePlay = () => {
     if (isPlaying) {
-      // Pause
+      // Pause - count as a session when pausing
       setIsPlaying(false)
       if (audioRef.current) {
         audioRef.current.pause()
+      }
+      // Increment session count
+      if (sessionTime > 0) {
+        const newSessionCount = sessionCount + 1
+        setSessionCount(newSessionCount)
+        localStorage.setItem('resonantBreathingSessions', newSessionCount.toString())
       }
     } else {
       // Play
@@ -81,8 +91,10 @@ function App() {
     return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
-  const formatHours = (hours) => {
-    return hours.toFixed(2)
+  const formatTotalTime = (totalSeconds) => {
+    const hours = Math.floor(totalSeconds / 3600)
+    const minutes = Math.floor((totalSeconds % 3600) / 60)
+    return `${hours}h ${minutes}m`
   }
 
   return (
@@ -98,13 +110,19 @@ function App() {
           {isPlaying ? 'Pause' : 'Play'}
         </button>
 
-        <div className="session-counter">
-          <p className="counter-label">Total Hours</p>
-          <p className="counter-value">{formatHours(totalHours)}</p>
+        <div className="stats">
+          <div className="stat-item">
+            <p className="stat-label">Total Time</p>
+            <p className="stat-value">{formatTotalTime(totalSeconds)}</p>
+          </div>
+          <div className="stat-item">
+            <p className="stat-label">Sessions</p>
+            <p className="stat-value">{sessionCount}</p>
+          </div>
         </div>
 
-        <a href="/install.html" className="install-link">
-          How to Install
+        <a href="/install.html" className="install-button">
+          Install App
         </a>
 
         <audio ref={audioRef} loop>
