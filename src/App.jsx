@@ -103,6 +103,10 @@ function App() {
           <p className="counter-value">{formatHours(totalHours)}</p>
         </div>
 
+        <a href="/install.html" className="install-link">
+          How to Install
+        </a>
+
         <audio ref={audioRef} loop>
           <source src="/breathing-audio.mp3" type="audio/mpeg" />
           Your browser does not support the audio element.

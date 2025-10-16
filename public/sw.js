@@ -1,7 +1,8 @@
-const CACHE_NAME = 'resonant-breathing-v1';
+const CACHE_NAME = 'resonant-breathing-v2';
 const urlsToCache = [
   '/',
   '/index.html',
+  '/install.html',
   '/src/main.jsx',
   '/src/App.jsx',
   '/src/App.css',
