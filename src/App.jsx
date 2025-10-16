@@ -86,6 +86,14 @@ function App() {
     setSelectedMode(mode)
   }
 
+  // Reload audio when mode changes
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load()
+      audioRef.current.volume = 0.85
+    }
+  }, [selectedMode])
+
   const togglePlay = () => {
     if (isPlaying) {
       // Pause - count as a session when pausing
@@ -171,7 +179,7 @@ function App() {
           Install App
         </a>
 
-        <audio ref={audioRef} loop>
+        <audio key={selectedMode} ref={audioRef} loop>
           <source src={breathingModes[selectedMode].audioFile} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
