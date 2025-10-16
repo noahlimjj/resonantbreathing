@@ -19,7 +19,8 @@
 
 .title {
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
   color: #2c3e50;
   margin-bottom: 40px;
   letter-spacing: 2px;
@@ -28,6 +29,7 @@
 .timer {
   font-size: 3rem;
   font-weight: 400;
+  font-family: 'Inter', sans-serif;
   color: #34495e;
   margin-bottom: 40px;
   font-variant-numeric: tabular-nums;
@@ -65,14 +67,16 @@
 
 .counter-label {
   font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
   color: #7f8c8d;
   margin-bottom: 10px;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
 .counter-value {
   font-size: 2.5rem;
+  font-family: 'Inter', sans-serif;
   color: #4db6ac;
   font-weight: 400;
 }

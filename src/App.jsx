@@ -3,31 +3,29 @@ import './App.css'
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [sessionCount, setSessionCount] = useState(0)
-  const [timeRemaining, setTimeRemaining] = useState(300) // 5 minutes in seconds
+  const [totalHours, setTotalHours] = useState(0)
+  const [sessionTime, setSessionTime] = useState(0) // Current session time in seconds
   const audioRef = useRef(null)
   const timerRef = useRef(null)
 
-  // Load session count from localStorage on mount
+  // Load total time from localStorage on mount and set volume
   useEffect(() => {
-    const savedCount = localStorage.getItem('resonantBreathingSessions')
-    if (savedCount) {
-      setSessionCount(parseInt(savedCount, 10))
+    const savedHours = localStorage.getItem('resonantBreathingTotalHours')
+    if (savedHours) {
+      setTotalHours(parseFloat(savedHours))
+    }
+
+    // Set audio volume to 85% (slightly louder)
+    if (audioRef.current) {
+      audioRef.current.volume = 0.85
     }
   }, [])
 
-  // Timer logic
+  // Stopwatch logic - counts up when playing
   useEffect(() => {
-    if (isPlaying && timeRemaining > 0) {
+    if (isPlaying) {
       timerRef.current = setInterval(() => {
-        setTimeRemaining((prev) => {
-          if (prev <= 1) {
-            // Session completed
-            handleSessionComplete()
-            return 300
-          }
-          return prev - 1
-        })
+        setSessionTime((prev) => prev + 1)
       }, 1000)
     } else {
       if (timerRef.current) {
@@ -40,18 +38,18 @@ function App() {
         clearInterval(timerRef.current)
       }
     }
-  }, [isPlaying, timeRemaining])
+  }, [isPlaying])
 
-  const handleSessionComplete = () => {
-    const newCount = sessionCount + 1
-    setSessionCount(newCount)
-    localStorage.setItem('resonantBreathingSessions', newCount.toString())
-    setIsPlaying(false)
-    if (audioRef.current) {
-      audioRef.current.pause()
-      audioRef.current.currentTime = 0
+  // Save total time whenever session time changes and is playing
+  useEffect(() => {
+    if (isPlaying && sessionTime > 0) {
+      // Update total hours (sessionTime is in seconds, convert to hours)
+      const hoursToAdd = 1 / 3600 // 1 second in hours
+      const newTotalHours = totalHours + hoursToAdd
+      setTotalHours(newTotalHours)
+      localStorage.setItem('resonantBreathingTotalHours', newTotalHours.toString())
     }
-  }
+  }, [sessionTime, isPlaying])
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -73,9 +71,18 @@ function App() {
   }
 
   const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60)
+    const hours = Math.floor(seconds / 3600)
+    const mins = Math.floor((seconds % 3600) / 60)
     const secs = seconds % 60
+
+    if (hours > 0) {
+      return `${hours}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+    }
     return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
+
+  const formatHours = (hours) => {
+    return hours.toFixed(2)
   }
 
   return (
@@ -84,7 +91,7 @@ function App() {
         <h1 className="title">Resonant Breathing</h1>
 
         <div className="timer">
-          {formatTime(timeRemaining)}
+          {formatTime(sessionTime)}
         </div>
 
         <button className="play-button" onClick={togglePlay}>
@@ -92,8 +99,8 @@ function App() {
         </button>
 
         <div className="session-counter">
-          <p className="counter-label">Completed Sessions</p>
-          <p className="counter-value">{sessionCount}</p>
+          <p className="counter-label">Total Hours</p>
+          <p className="counter-value">{formatHours(totalHours)}</p>
         </div>
 
         <audio ref={audioRef} loop>
