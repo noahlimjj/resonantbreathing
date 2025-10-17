@@ -1,4 +1,4 @@
-const CACHE_NAME = 'breathe-v5';
+const CACHE_NAME = 'breathe-v6';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -9,6 +9,9 @@ const urlsToCache = [
   '/src/index.css',
   '/breathing-audio.mp3',
   '/pns-breathing.mp3',
+  '/sleep-headspace.mp3',
+  '/sandy-before-bed.mp3',
+  '/morning.mp3',
   '/manifest.json',
   '/icon-72x72.png',
   '/icon-96x96.png',
@@ -37,6 +40,11 @@ self.addEventListener('install', (event) => {
 
 // Fetch from cache first, then network
 self.addEventListener('fetch', (event) => {
+  // Only handle http/https requests
+  if (!event.request.url.startsWith('http')) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
