@@ -9,7 +9,7 @@ body {
   font-family: 'Cormorant Garamond', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+  background: linear-gradient(135deg, #a7d8de 0%, #80cbc4 50%, #4db6ac 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
