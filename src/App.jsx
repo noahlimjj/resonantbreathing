@@ -45,9 +45,9 @@ function App() {
       setSessionCount(parseInt(savedSessions, 10))
     }
 
-    // Set audio volume to 85% (slightly louder)
+    // Set audio volume based on mode
     if (audioRef.current) {
-      audioRef.current.volume = 0.85
+      audioRef.current.volume = selectedMode === 'resonant' ? 1.0 : 0.85
     }
   }, [])
 
@@ -102,7 +102,7 @@ function App() {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.load()
-      audioRef.current.volume = 0.85
+      audioRef.current.volume = selectedMode === 'resonant' ? 1.0 : 0.85
     }
   }, [selectedMode])
 

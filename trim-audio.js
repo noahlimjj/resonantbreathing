@@ -5,10 +5,10 @@ import fs from 'fs';
 const execPromise = promisify(exec);
 
 // Configuration
-const INPUT_FILE = 'Breathing Routine To Help Fall Asleep I 1 Minute Breath Holds.mp3';
-const OUTPUT_FILE = 'public/sandy-before-bed.mp3';
-const BACKUP_FILE = 'Breathing Routine To Help Fall Asleep I 1 Minute Breath Holds-BACKUP.mp3';
-const START_TIME = '0:50';  // Format: MM:SS or HH:MM:SS - Skip first 50 seconds
+const INPUT_FILE = '10 Minute Morning Breathwork Routine I The Key To Happiness.mp3';
+const OUTPUT_FILE = 'public/morning.mp3';
+const BACKUP_FILE = '10 Minute Morning Breathwork Routine I The Key To Happiness-BACKUP.mp3';
+const START_TIME = '0:40';  // Format: MM:SS or HH:MM:SS - Skip first 40 seconds
 const END_TIME = null;    // Format: MM:SS or HH:MM:SS
 const DURATION = null;      // Alternative: specify duration instead of end time (e.g., '30' for 30 seconds)
 
