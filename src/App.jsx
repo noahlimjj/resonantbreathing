@@ -18,6 +18,18 @@ function App() {
     pns: {
       name: 'PNS',
       audioFile: '/pns-breathing.mp3'
+    },
+    sleep: {
+      name: 'Sleep - Headspace',
+      audioFile: '/sleep-headspace.mp3'
+    },
+    sandy: {
+      name: 'Sandy - Before bed',
+      audioFile: '/sandy-before-bed.mp3'
+    },
+    morning: {
+      name: 'Morning',
+      audioFile: '/morning.mp3'
     }
   }
 
@@ -153,6 +165,24 @@ function App() {
             onClick={() => selectMode('pns')}
           >
             {breathingModes.pns.name}
+          </button>
+          <button
+            className={`mode-button ${selectedMode === 'sleep' ? 'active' : ''}`}
+            onClick={() => selectMode('sleep')}
+          >
+            {breathingModes.sleep.name}
+          </button>
+          <button
+            className={`mode-button ${selectedMode === 'sandy' ? 'active' : ''}`}
+            onClick={() => selectMode('sandy')}
+          >
+            {breathingModes.sandy.name}
+          </button>
+          <button
+            className={`mode-button ${selectedMode === 'morning' ? 'active' : ''}`}
+            onClick={() => selectMode('morning')}
+          >
+            {breathingModes.morning.name}
           </button>
         </div>
 

@@ -5,10 +5,10 @@ import fs from 'fs';
 const execPromise = promisify(exec);
 
 // Configuration
-const INPUT_FILE = 'public/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama.mp3';
-const OUTPUT_FILE = 'public/pns-breathing-trimmed.mp3';
-const BACKUP_FILE = 'public/15 Minute Parasympathetic Breathwork For Stress & Anxiety  I Pranayama-BACKUP.mp3';
-const START_TIME = '1:17';  // Format: MM:SS or HH:MM:SS - Skip first 1 min 17 seconds
+const INPUT_FILE = '10 Minute Morning Breathwork Routine I The Key To Happiness.mp3';
+const OUTPUT_FILE = 'public/morning.mp3';
+const BACKUP_FILE = '10 Minute Morning Breathwork Routine I The Key To Happiness-BACKUP.mp3';
+const START_TIME = '1:00';  // Format: MM:SS or HH:MM:SS - Skip first 1 minute
 const END_TIME = null;    // Format: MM:SS or HH:MM:SS
 const DURATION = null;      // Alternative: specify duration instead of end time (e.g., '30' for 30 seconds)
 
