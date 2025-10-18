@@ -1,4 +1,4 @@
-const CACHE_NAME = 'breathe-v6';
+const CACHE_NAME = 'breathe-v7';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -6,6 +6,8 @@ const urlsToCache = [
   '/src/main.jsx',
   '/src/App.jsx',
   '/src/App.css',
+  '/src/Info.jsx',
+  '/src/Info.css',
   '/src/index.css',
   '/breathing-audio.mp3',
   '/pns-breathing.mp3',
