@@ -145,6 +145,114 @@
   box-shadow: 0 6px 20px rgba(77, 182, 172, 0.4);
 }
 
+.timer-controls {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.timer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #34495e;
+  user-select: none;
+}
+
+.timer-toggle input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #4db6ac;
+}
+
+.timer-toggle input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.timer-toggle-label {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.timer-inputs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 30px;
+  background: rgba(77, 182, 172, 0.05);
+  border-radius: 16px;
+  border: 2px solid rgba(77, 182, 172, 0.2);
+}
+
+.timer-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #34495e;
+  background: white;
+  border: 2px solid #4db6ac;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 90px;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-input:focus {
+  outline: none;
+  border-color: #80cbc4;
+  box-shadow: 0 0 0 4px rgba(77, 182, 172, 0.1);
+  transform: scale(1.02);
+}
+
+.timer-input:disabled {
+  background: rgba(0, 0, 0, 0.05);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Remove spinner arrows from number inputs */
+.timer-input::-webkit-inner-spin-button,
+.timer-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.timer-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.timer-separator {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  color: #4db6ac;
+  font-weight: 300;
+  margin: 0 4px;
+}
+
+.timer-unit {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
 @media (max-width: 600px) {
   .title {
     font-size: 2rem;
@@ -182,5 +290,28 @@
 
   .stat-label {
     font-size: 1rem;
+  }
+
+  .timer-inputs {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  .timer-input {
+    font-size: 1.6rem;
+    width: 70px;
+    padding: 10px 12px;
+  }
+
+  .timer-separator {
+    font-size: 2rem;
+  }
+
+  .timer-unit {
+    font-size: 0.8rem;
+  }
+
+  .timer-toggle {
+    font-size: 0.9rem;
   }
 }

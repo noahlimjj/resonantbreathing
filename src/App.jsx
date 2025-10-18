@@ -7,6 +7,10 @@ function App() {
   const [totalSeconds, setTotalSeconds] = useState(0)
   const [sessionCount, setSessionCount] = useState(0)
   const [sessionTime, setSessionTime] = useState(0) // Current session time in seconds
+  const [timerEnabled, setTimerEnabled] = useState(false)
+  const [timerMinutes, setTimerMinutes] = useState(5)
+  const [timerSeconds, setTimerSeconds] = useState(0)
+  const [remainingTime, setRemainingTime] = useState(0) // Remaining time when countdown is active
   const audioRef = useRef(null)
   const timerRef = useRef(null)
 
@@ -51,11 +55,30 @@ function App() {
     }
   }, [])
 
-  // Stopwatch logic - counts up when playing
+  // Timer logic - counts up for stopwatch or down for countdown
   useEffect(() => {
     if (isPlaying) {
       timerRef.current = setInterval(() => {
         setSessionTime((prev) => prev + 1)
+
+        // Countdown logic if timer is enabled
+        if (timerEnabled) {
+          setRemainingTime((prev) => {
+            if (prev <= 1) {
+              // Timer has ended - stop playback
+              setIsPlaying(false)
+              if (audioRef.current) {
+                audioRef.current.pause()
+              }
+              // Count as session
+              const newSessionCount = sessionCount + 1
+              setSessionCount(newSessionCount)
+              localStorage.setItem('resonantBreathingSessions', newSessionCount.toString())
+              return 0
+            }
+            return prev - 1
+          })
+        }
       }, 1000)
     } else {
       if (timerRef.current) {
@@ -68,7 +91,7 @@ function App() {
         clearInterval(timerRef.current)
       }
     }
-  }, [isPlaying])
+  }, [isPlaying, timerEnabled])
 
   // Save total time whenever session time changes and is playing
   useEffect(() => {
@@ -120,7 +143,15 @@ function App() {
         localStorage.setItem('resonantBreathingSessions', newSessionCount.toString())
       }
     } else {
-      // Play
+      // Play - initialize timer if enabled
+      if (timerEnabled) {
+        const totalTimeSeconds = timerMinutes * 60 + timerSeconds
+        if (totalTimeSeconds <= 0) {
+          alert('Please set a timer duration greater than 0')
+          return
+        }
+        setRemainingTime(totalTimeSeconds)
+      }
       setIsPlaying(true)
       if (audioRef.current) {
         audioRef.current.play().catch(err => {
@@ -129,6 +160,16 @@ function App() {
         })
       }
     }
+  }
+
+  const handleTimerMinutesChange = (e) => {
+    const value = parseInt(e.target.value) || 0
+    setTimerMinutes(Math.max(0, Math.min(99, value)))
+  }
+
+  const handleTimerSecondsChange = (e) => {
+    const value = parseInt(e.target.value) || 0
+    setTimerSeconds(Math.max(0, Math.min(59, value)))
   }
 
   const formatTime = (seconds) => {
@@ -187,7 +228,49 @@ function App() {
         </div>
 
         <div className="timer">
-          {formatTime(sessionTime)}
+          {timerEnabled && isPlaying ? formatTime(remainingTime) : formatTime(sessionTime)}
+        </div>
+
+        <div className="timer-controls">
+          <label className="timer-toggle">
+            <input
+              type="checkbox"
+              checked={timerEnabled}
+              onChange={(e) => setTimerEnabled(e.target.checked)}
+              disabled={isPlaying}
+            />
+            <span className="timer-toggle-label">Set Timer</span>
+          </label>
+
+          {timerEnabled && !isPlaying && (
+            <div className="timer-inputs">
+              <div className="timer-input-group">
+                <input
+                  type="number"
+                  className="timer-input"
+                  value={timerMinutes}
+                  onChange={handleTimerMinutesChange}
+                  min="0"
+                  max="99"
+                  disabled={isPlaying}
+                />
+                <span className="timer-unit">min</span>
+              </div>
+              <span className="timer-separator">:</span>
+              <div className="timer-input-group">
+                <input
+                  type="number"
+                  className="timer-input"
+                  value={timerSeconds.toString().padStart(2, '0')}
+                  onChange={handleTimerSecondsChange}
+                  min="0"
+                  max="59"
+                  disabled={isPlaying}
+                />
+                <span className="timer-unit">sec</span>
+              </div>
+            </div>
+          )}
         </div>
 
         <button className="play-button" onClick={togglePlay}>
