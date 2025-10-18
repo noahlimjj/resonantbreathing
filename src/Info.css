@@ -1,0 +1,151 @@
+.info-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.info-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #667eea;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateX(-4px);
+}
+
+.info-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.info-section {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.info-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.info-section h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.info-section h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.info-section p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4a5568;
+  margin-bottom: 16px;
+}
+
+.info-section ul {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4a5568;
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.info-section li {
+  margin-bottom: 8px;
+}
+
+.info-section em {
+  font-style: italic;
+  color: #667eea;
+}
+
+.info-section strong {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .info-container {
+    padding: 24px;
+  }
+
+  .info-title {
+    font-size: 28px;
+  }
+
+  .info-section h2 {
+    font-size: 24px;
+  }
+
+  .info-section h3 {
+    font-size: 18px;
+  }
+
+  .info-section p,
+  .info-section ul {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-page {
+    padding: 12px;
+  }
+
+  .info-container {
+    padding: 20px;
+  }
+
+  .info-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .info-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+}

@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css'
+import Info from './Info'
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedMode, setSelectedMode] = useState('resonant') // 'resonant' or 'pns'
+  const [showInfo, setShowInfo] = useState(false)
   const [totalSeconds, setTotalSeconds] = useState(0)
   const [sessionCount, setSessionCount] = useState(0)
   const [sessionTime, setSessionTime] = useState(0) // Current session time in seconds
@@ -20,7 +22,7 @@ function App() {
       audioFile: '/breathing-audio.mp3'
     },
     pns: {
-      name: 'PNS',
+      name: 'Parasympathetic',
       audioFile: '/pns-breathing.mp3'
     },
     sleep: {
@@ -189,6 +191,10 @@ function App() {
     return `${hours}h ${minutes}m`
   }
 
+  if (showInfo) {
+    return <Info onBack={() => setShowInfo(false)} />
+  }
+
   return (
     <div className="app">
       <div className="container">
@@ -287,6 +293,15 @@ function App() {
             <p className="stat-value">{sessionCount}</p>
           </div>
         </div>
+
+        <button className="info-button" onClick={() => setShowInfo(true)}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 16v-4"></path>
+            <path d="M12 8h.01"></path>
+          </svg>
+          Learn About Each Breathing Technique
+        </button>
 
         <a href="/install.html" className="install-button">
           Install App

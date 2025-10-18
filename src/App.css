@@ -126,9 +126,35 @@
   font-weight: 400;
 }
 
+.info-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #4db6ac;
+  background: transparent;
+  border: 2px solid #4db6ac;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 400;
+}
+
+.info-button:hover {
+  background: rgba(77, 182, 172, 0.1);
+  transform: translateY(-2px);
+}
+
+.info-button:active {
+  transform: translateY(0);
+}
+
 .install-button {
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 15px;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   color: white;
