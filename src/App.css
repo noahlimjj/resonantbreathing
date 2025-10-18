@@ -126,49 +126,36 @@
   font-weight: 400;
 }
 
-.info-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
   margin-top: 30px;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  color: #4db6ac;
-  background: transparent;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   border: 2px solid #4db6ac;
+  background: transparent;
+  color: #4db6ac;
+  border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 12px 28px;
-  border-radius: 50px;
-  font-weight: 400;
+  text-decoration: none;
 }
 
-.info-button:hover {
+.icon-button:hover {
   background: rgba(77, 182, 172, 0.1);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(77, 182, 172, 0.2);
 }
 
-.info-button:active {
+.icon-button:active {
   transform: translateY(0);
-}
-
-.install-button {
-  display: inline-block;
-  margin-top: 15px;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  color: white;
-  background: linear-gradient(135deg, #80cbc4 0%, #4db6ac 100%);
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 12px 32px;
-  border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(77, 182, 172, 0.3);
-}
-
-.install-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(77, 182, 172, 0.4);
 }
 
 .timer-controls {
