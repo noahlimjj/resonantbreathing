@@ -6,6 +6,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedMode, setSelectedMode] = useState('resonant') // 'resonant' or 'pns'
   const [showInfo, setShowInfo] = useState(false)
+  const [showVideo, setShowVideo] = useState(false)
   const [totalSeconds, setTotalSeconds] = useState(0)
   const [sessionCount, setSessionCount] = useState(0)
   const [sessionTime, setSessionTime] = useState(0) // Current session time in seconds
@@ -295,6 +296,11 @@ function App() {
         </div>
 
         <div className="action-buttons">
+          <button className="icon-button" onClick={() => setShowVideo(true)} title="Watch Video Guide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
           <button className="icon-button" onClick={() => setShowInfo(true)} title="Learn about breathing techniques">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"></circle>
@@ -311,6 +317,24 @@ function App() {
             </svg>
           </a>
         </div>
+
+        {showVideo && (
+          <div className="modal-overlay" onClick={() => setShowVideo(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="modal-close" onClick={() => setShowVideo(false)}>×</button>
+              <h2>Video Guide</h2>
+              <div className="video-container">
+                <iframe
+                  src="https://www.youtube.com/embed/mPOB8a6llyE"
+                  title="Resonant Breathing Guide"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        )}
 
         <audio key={selectedMode} ref={audioRef} loop>
           <source src={breathingModes[selectedMode].audioFile} type="audio/mpeg" />
