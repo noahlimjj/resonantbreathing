@@ -20,23 +20,33 @@ function App() {
   const breathingModes = {
     resonant: {
       name: 'Resonant',
-      audioFile: '/breathing-audio.mp3'
+      audioFile: '/breathing-audio.mp3',
+      videoId: null
     },
     pns: {
       name: 'Parasympathetic',
-      audioFile: '/pns-breathing.mp3'
+      audioFile: '/pns-breathing.mp3',
+      videoId: null
     },
     sleep: {
       name: 'Sleep',
-      audioFile: '/sleep-headspace.mp3'
+      audioFile: '/sleep-headspace.mp3',
+      videoId: null
     },
     sandy: {
       name: 'Before bed',
-      audioFile: '/sandy-before-bed.mp3'
+      audioFile: '/sandy-before-bed.mp3',
+      videoId: null
     },
     morning: {
       name: 'Morning',
-      audioFile: '/morning.mp3'
+      audioFile: '/morning.mp3',
+      videoId: null
+    },
+    yognidra: {
+      name: 'Yoga Nidra',
+      audioFile: null,
+      videoId: '_noquwycq78'
     }
   }
 
@@ -106,6 +116,12 @@ function App() {
   }, [sessionTime, isPlaying])
 
   const selectMode = (mode) => {
+    // If Yoga Nidra, just open video
+    if (mode === 'yognidra') {
+      setSelectedMode(mode)
+      setShowVideo(true)
+      return
+    }
     // Stop current playback if switching modes
     if (isPlaying) {
       setIsPlaying(false)
@@ -232,6 +248,12 @@ function App() {
           >
             {breathingModes.morning.name}
           </button>
+          <button
+            className={`mode-button ${selectedMode === 'yognidra' ? 'active' : ''}`}
+            onClick={() => selectMode('yognidra')}
+          >
+            {breathingModes.yognidra.name}
+          </button>
         </div>
 
         <div className="timer">
@@ -325,8 +347,8 @@ function App() {
               <h2>Video Guide</h2>
               <div className="video-container">
                 <iframe
-                  src="https://www.youtube.com/embed/mPOB8a6llyE"
-                  title="Resonant Breathing Guide"
+                  src={`https://www.youtube.com/embed/${breathingModes[selectedMode].videoId || 'mPOB8a6llyE'}`}
+                  title={breathingModes[selectedMode].name + ' Guide'}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -336,10 +358,12 @@ function App() {
           </div>
         )}
 
-        <audio key={selectedMode} ref={audioRef} loop>
-          <source src={breathingModes[selectedMode].audioFile} type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
+        {breathingModes[selectedMode].audioFile && (
+          <audio key={selectedMode} ref={audioRef} loop>
+            <source src={breathingModes[selectedMode].audioFile} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        )}
       </div>
     </div>
   )
