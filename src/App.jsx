@@ -4,7 +4,7 @@ import Info from './Info'
 
 // Daily verse/quote — same one all day, rotates daily
 const verses = [
-  { text: "Be still, and know that I am God.", source: "Psalm 46:10" },
+  { text: "Be still, and know that I am God.", source: "Psalm 46:10 🙏" },
   { text: "I can do all things through Christ who strengthens me.", source: "Philippians 4:13" },
   { text: "The Lord is my shepherd; I shall not want.", source: "Psalm 23:1" },
   { text: "Fear not, for I am with you.", source: "Isaiah 41:10" },
