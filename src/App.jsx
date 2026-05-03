@@ -2,6 +2,41 @@ import { useState, useRef, useEffect } from 'react'
 import './App.css'
 import Info from './Info'
 
+// Daily verse/quote — same one all day, rotates daily
+const verses = [
+  { text: "Be still, and know that I am God.", source: "Psalm 46:10" },
+  { text: "I can do all things through Christ who strengthens me.", source: "Philippians 4:13" },
+  { text: "The Lord is my shepherd; I shall not want.", source: "Psalm 23:1" },
+  { text: "Fear not, for I am with you.", source: "Isaiah 41:10" },
+  { text: "Your peace I give to you.", source: "John 14:27" },
+  { text: "This is the day the Lord has made; I will rejoice and be glad in it.", source: "Psalm 118:24" },
+  { text: "He leads me beside still waters.", source: "Psalm 23:2" },
+  { text: "The Lord is near to all who call on him.", source: "Psalm 145:18" },
+  { text: "Let your gentleness be evident to all.", source: "Philippians 4:5" },
+  { text: "Do not be anxious about anything.", source: "Philippians 4:6" },
+  { text: "My grace is sufficient for you.", source: "2 Corinthians 12:9" },
+  { text: "You are worthy, Lord, to receive glory.", source: "Revelation 5:12" },
+  { text: "Be strong and take heart.", source: "Psalm 27:14" },
+  { text: "He calms the storm to a whisper.", source: "Psalm 107:29" },
+  { text: "Rest in me, and be still.", source: "Psalm 46:10 (paraphrase)" },
+  { text: "Rise after falling. Strength is forged through struggle.", source: "Motivational" },
+  { text: "Consistency beats intensity every time.", source: "Motivational" },
+  { text: "You don't have to be great to start, but you have to start to be great.", source: "Zig Ziglar" },
+  { text: "The only way out is through.", source: "Robert Frost" },
+  { text: "Discipline is choosing between what you want now and what you want most.", source: "Abraham Lincoln" },
+  { text: "Recovery is not a sign of weakness.", source: "Motivational" },
+  { text: "Breathe. It is just a bad day, not a bad life.", source: "Motivational" },
+  { text: "Progress, not perfection.", source: "Motivational" },
+  { text: "Small daily improvements are the key to staggering long-term results.", source: "Motivational" },
+  { text: "You are closer than you think.", source: "Motivational" },
+]
+
+const getDailyVerse = () => {
+  const today = new Date()
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate()
+  return verses[seed % verses.length]
+}
+
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedMode, setSelectedMode] = useState('resonant') // 'resonant' or 'pns'
@@ -201,6 +236,8 @@ function App() {
     return `${hours}h ${minutes}m`
   }
 
+  const dailyVerse = getDailyVerse()
+
   if (showInfo) {
     return <Info onBack={() => setShowInfo(false)} />
   }
@@ -308,6 +345,11 @@ function App() {
             <p className="stat-label">Sessions</p>
             <p className="stat-value">{sessionCount}</p>
           </div>
+        </div>
+
+        <div className="daily-verse">
+          <p className="verse-text">"{dailyVerse.text}"</p>
+          <p className="verse-source">— {dailyVerse.source}</p>
         </div>
 
         <div className="action-buttons">
