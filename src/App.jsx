@@ -48,6 +48,7 @@ function App() {
   const [timerMinutes, setTimerMinutes] = useState(5)
   const [timerSeconds, setTimerSeconds] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0) // Remaining time when countdown is active
+  const [playbackSpeed, setPlaybackSpeed] = useState(0.2) // Slow breathing: 0.2 = 1/5 normal speed
   const audioRef = useRef(null)
   const timerRef = useRef(null)
 
@@ -96,9 +97,10 @@ function App() {
       setSessionCount(parseInt(savedSessions, 10))
     }
 
-    // Set audio volume based on mode
+    // Set audio volume and speed based on mode
     if (audioRef.current) {
       audioRef.current.volume = selectedMode === 'resonant' ? 1.0 : 0.85
+      audioRef.current.playbackRate = selectedMode === 'resonant' ? 0.2 : 1.0
     }
   }, [])
 
@@ -173,6 +175,7 @@ function App() {
     if (audioRef.current) {
       audioRef.current.load()
       audioRef.current.volume = selectedMode === 'resonant' ? 1.0 : 0.85
+      audioRef.current.playbackRate = selectedMode === 'resonant' ? 0.2 : 1.0
     }
   }, [selectedMode])
 
@@ -353,7 +356,30 @@ function App() {
         </div>
 
         <div className="action-buttons">
-          <button className="icon-button" onClick={() => setShowInfo(true)} title="Learn about breathing techniques">
+        <div className="speed-control">
+          <label className="speed-label">Speed: {playbackSpeed.toFixed(2)}x</label>
+          <input
+            type="range"
+            className="speed-slider"
+            min="0.05"
+            max="1.0"
+            step="0.05"
+            value={playbackSpeed}
+            onChange={(e) => {
+              const speed = parseFloat(e.target.value)
+              setPlaybackSpeed(speed)
+              if (audioRef.current) audioRef.current.playbackRate = speed
+            }}
+          />
+          <div className="speed-presets">
+            <button onClick={() => { setPlaybackSpeed(0.2); if (audioRef.current) audioRef.current.playbackRate = 0.2 }}>⅕x</button>
+            <button onClick={() => { setPlaybackSpeed(0.17); if (audioRef.current) audioRef.current.playbackRate = 0.17 }}>⅙x</button>
+            <button onClick={() => { setPlaybackSpeed(0.25); if (audioRef.current) audioRef.current.playbackRate = 0.25 }}>¼x</button>
+            <button onClick={() => { setPlaybackSpeed(1.0); if (audioRef.current) audioRef.current.playbackRate = 1.0 }}>1x</button>
+          </div>
+        </div>
+
+        <button className="icon-button" onClick={() => setShowInfo(true)} title="Learn about breathing techniques">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"></circle>
               <path d="M12 16v-4"></path>
