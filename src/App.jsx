@@ -48,7 +48,7 @@ function App() {
   const [timerMinutes, setTimerMinutes] = useState(5)
   const [timerSeconds, setTimerSeconds] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0) // Remaining time when countdown is active
-  const [playbackSpeed, setPlaybackSpeed] = useState(0.2) // Slow breathing: 0.2 = 1/5 normal speed
+  const [playbackSpeed, setPlaybackSpeed] = useState(0.83) // 5/6 normal speed
   const audioRef = useRef(null)
   const timerRef = useRef(null)
 
@@ -100,7 +100,7 @@ function App() {
     // Set audio volume and speed based on mode
     if (audioRef.current) {
       audioRef.current.volume = selectedMode === 'resonant' ? 1.0 : 0.85
-      audioRef.current.playbackRate = selectedMode === 'resonant' ? 0.2 : 1.0
+      audioRef.current.playbackRate = selectedMode === 'resonant' ? 0.83 : 1.0
     }
   }, [])
 
@@ -175,7 +175,7 @@ function App() {
     if (audioRef.current) {
       audioRef.current.load()
       audioRef.current.volume = selectedMode === 'resonant' ? 1.0 : 0.85
-      audioRef.current.playbackRate = selectedMode === 'resonant' ? 0.2 : 1.0
+      audioRef.current.playbackRate = selectedMode === 'resonant' ? 0.83 : 1.0
     }
   }, [selectedMode])
 
@@ -372,9 +372,9 @@ function App() {
             }}
           />
           <div className="speed-presets">
-            <button onClick={() => { setPlaybackSpeed(0.2); if (audioRef.current) audioRef.current.playbackRate = 0.2 }}>⅕x</button>
-            <button onClick={() => { setPlaybackSpeed(0.17); if (audioRef.current) audioRef.current.playbackRate = 0.17 }}>⅙x</button>
-            <button onClick={() => { setPlaybackSpeed(0.25); if (audioRef.current) audioRef.current.playbackRate = 0.25 }}>¼x</button>
+            <button onClick={() => { setPlaybackSpeed(0.5); if (audioRef.current) audioRef.current.playbackRate = 0.5 }}>½x</button>
+            <button onClick={() => { setPlaybackSpeed(0.67); if (audioRef.current) audioRef.current.playbackRate = 0.67 }}>⅔x</button>
+            <button onClick={() => { setPlaybackSpeed(0.83); if (audioRef.current) audioRef.current.playbackRate = 0.83 }}>⁵⁄₆x</button>
             <button onClick={() => { setPlaybackSpeed(1.0); if (audioRef.current) audioRef.current.playbackRate = 1.0 }}>1x</button>
           </div>
         </div>
