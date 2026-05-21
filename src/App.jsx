@@ -374,7 +374,7 @@ function App() {
           <div className="speed-presets">
             <button onClick={() => { setPlaybackSpeed(0.5); if (audioRef.current) audioRef.current.playbackRate = 0.5 }}>½x</button>
             <button onClick={() => { setPlaybackSpeed(0.67); if (audioRef.current) audioRef.current.playbackRate = 0.67 }}>⅔x</button>
-            <button onClick={() => { setPlaybackSpeed(0.83); if (audioRef.current) audioRef.current.playbackRate = 0.83 }}>⁵⁄₆x</button>
+            <button onClick={() => { setPlaybackSpeed(0.83); if (audioRef.current) audioRef.current.playbackRate = 0.83 }}>83%</button>
             <button onClick={() => { setPlaybackSpeed(1.0); if (audioRef.current) audioRef.current.playbackRate = 1.0 }}>1x</button>
           </div>
         </div>
