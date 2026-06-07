@@ -114,15 +114,22 @@ function App() {
         if (timerEnabled) {
           setRemainingTime((prev) => {
             if (prev <= 1) {
-              // Timer has ended - stop playback
-              setIsPlaying(false)
+              // Timer has ended - stop playback and count this as a session
               if (audioRef.current) {
                 audioRef.current.pause()
               }
+              // Save session time to total
+              const finalSessionTime = sessionTime
+              const newTotalSeconds = totalSeconds + finalSessionTime
+              setTotalSeconds(newTotalSeconds)
+              localStorage.setItem('resonantBreathingTotalSeconds', newTotalSeconds.toString())
               // Count as session
               const newSessionCount = sessionCount + 1
               setSessionCount(newSessionCount)
               localStorage.setItem('resonantBreathingSessions', newSessionCount.toString())
+              // Reset session time and stop
+              setSessionTime(0)
+              setIsPlaying(false)
               return 0
             }
             return prev - 1
